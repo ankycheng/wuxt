@@ -1,13 +1,13 @@
 <template>
   <main class="wp__content">
-    <p>
+    <!--<p>
       <span class="bold">Wuxt</span> combines
       <span class="bold italic">WordPress</span>, the worlds biggest CMS with
       <span class="bold italic">nuxt.js</span>, the most awesome front-end application framework yet.
-    </p>
-    <p>The goal is to provide a ready to use development environment, which makes the full power of WordPress easily available to your front-and app. Included in Wuxt are:</p>
+    </p>-->
+    <!--<p>The goal is to provide a ready to use development environment, which makes the full power of WordPress easily available to your front-and app. Included in Wuxt are:</p>-->
 
-    <ul>
+    <!--<ul>
       <li>
         Fully dockerized
         <span class="bold italic">WordPress</span> and
@@ -20,19 +20,63 @@
         <code>$wp</code> object, to connect to the extended
         <span class="bold italic">WordPress</span> Rest API.
       </li>
-    </ul>
+    </ul>-->
 
-    <p>
+    <!--<p>
       All together the
       <span class="bold italic">Wuxt</span> features get you started with your front-end with just one command, you just need to work with the intuitive
       <span
         class="bold italic"
       >WordPress</span> admin interface and can skip all back-end coding. But if you know your way around WordPress you are able to easily extend the back-end as well.
-    </p>
+    </p>-->
+    <!--<div class="fp">{{fp}}</div>-->
+    <div class="posts">
+      <div class="post" v-for="(p,index) in posts" :key="index">
+        <h1>Title {{p.title.rendered}}</h1>
+        <p v-html="p.content.rendered"></p>
+      </div>
+    </div>
   </main>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      post: false,
+      fp: null,
+      posts: []
+    }
+  },
+  async asyncData(context) {
+    const { route, app, error } = context
+
+    try {
+      // const single = await app.$wp.slug().name(route.params.single)
+      const fp = app.$wp.frontPage().embed()
+      // console.log('FPPPP')
+      // console.log(fp)
+      return {
+        fp
+      }
+    } catch (e) {
+      error(e)
+    }
+  },
+  mounted() {
+    // console.log('123')
+    console.log(this.$wp._options.endpoint)
+    this.$axios
+      .get(this.$wp._options.endpoint + 'wuxt/v1/front-page')
+      .then(res => {
+        console.log(res)
+        this.posts = res.data
+      })
+  },
+  computed: {},
+  methods: {},
+  components: {}
+}
 </script>
 
 <style lang="scss" scoped>

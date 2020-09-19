@@ -28,3 +28,6 @@
 
      // activating generate queries
      require_once(dirname(__FILE__) . '/extensions/generate.php');
+
+     // custom fields api
+     require_once(dirname(__FILE__) . '/extensions/fields.php');

@@ -13,34 +13,52 @@ module.exports = {
    */
   head: {
     title: pkg.name,
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: pkg.description
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
 
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#333' },
+  loading: {
+    color: '#333'
+  },
 
   /*
    ** Global CSS
    */
-  css: ['@/assets/styles/main.scss'],
+  css: ['@/assets/styles/main.scss', '@/assets/styles/custom.scss'],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/wp-api-docker-connector', ssr: false }],
+  plugins: [{
+    src: '~/plugins/wp-api-docker-connector',
+    ssr: false
+  }],
 
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '~/modules/static/',
@@ -51,6 +69,10 @@ module.exports = {
       }
     ]
   ],
+  bootstrapVue: {
+    bootstrapCSS: false,
+    bootstrapVueCSS: false
+  },
   /*
    ** Axios module configuration
    */
@@ -79,10 +101,18 @@ module.exports = {
   },
 
   generate: {
-    routes: function() {
+    routes: function () {
       return axios
         .get('http://' + (process.env.WUXT_WP_CONTAINER ? process.env.WUXT_WP_CONTAINER : 'wp.wuxt') + ':80/wp-json/wuxt/v1/generate')
-        .then(({ data }) => data)
+        .then(({
+          data
+        }) => data)
     }
+  },
+  module: {
+    rules: [{
+      test: /\.s[ac]ss$/i,
+      use: ['style-loader', 'css-loader', 'sass-loader', ],
+    }],
   }
 }

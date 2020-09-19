@@ -1,12 +1,28 @@
 <template>
   <div>
     <header class="header">
-      <Logo/>
+      <!--<Logo/>-->
 
-      <nav class="header__nav">
+      <!--<div class="container-fluid">
+        <div class="row">
+          <div class="col-8">
+            12345
+          </div> 
+          <div class="col-4">
+            85644
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn btn-primary">13</div>
+          </div>
+        </div>
+      </div>-->
+
+      <!--<nav class="header__nav">
         <nuxt-link to="/hello-world">Hello World</nuxt-link>
         <nuxt-link to="/sample-page">Sample Page</nuxt-link>
-      </nav>
+      </nav>-->
     </header>
     <nuxt class="container"/>
   </div>

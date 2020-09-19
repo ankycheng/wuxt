@@ -5,6 +5,8 @@ services:
         image: mysql:5.7
         volumes:
             - ./_db:/var/lib/mysql
+        ports:
+          - '9876:3306'
         environment:
             MYSQL_ROOT_PASSWORD: dev
         networks:
